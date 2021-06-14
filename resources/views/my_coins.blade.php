@@ -35,9 +35,9 @@
 @section('content')
 <div class="row">
    <div class="col-md-12">
-      <h2 class="text-center">Users</h2>
-      @if(Session::has('info'))
-      <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('info') }}</p>
+      <h2 class="text-center">@if(auth()->user()->role == 2)My Coins @else All Coins @endif</h2>
+      @if(Session::has('success'))
+      <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('success') }}</p>
       @endif
 
       @if ($errors->any())
@@ -53,9 +53,9 @@
             <div class="col-md-4"></div>
             <div class="col-md-3 pb-3 pr-5">
                <!-- Button trigger modal -->
-               <button type="button" class="btn btn-primary float-right " data-toggle="modal" data-target="#exampleModal">
-               Add User
-               </button>
+               <a href="/add_coin"><button type="button" class="btn btn-primary float-right">
+               Add Coin
+               </button></a>
               
             </div>
          </div>
@@ -69,51 +69,194 @@
                               <span>ID</span> <br>
                            </th>
                            <th style="background: gainsboro;">
+                              <span>Logo</span> <br>
+                           </th>
+                           <th style="background: gainsboro;">
                               <span>Name</span> <br>
+                           </th>
+                           <th style="background: gainsboro;">
+                              <span>User</span> <br>
+                           </th>
+                           <th style="background: gainsboro;">
+                              <span>Symbol</span> <br>
+                           </th>
+                           <th style="background: gainsboro;">
+                              <span>Description</span> <br>
+                           </th>
+                           <th style="background: gainsboro;">
+                              <span>Price</span> <br>
+                           </th>
+                            <th style="background: gainsboro;">
+                              <span>Launch Date</span> <br>
+                           </th>
+                            <th style="background: gainsboro;">
+                              <span>Actions</span> <br>
+                           </th>
+                           <th style="background: gainsboro;">
+                              <span>Market Cap</span> <br>
+                           </th>
+                           <th style="background: gainsboro;">
+                              <span>Smart Chain</span> <br>
+                           </th>
+                           <th style="background: gainsboro;">
+                              <span>Website</span> <br>
+                           </th>
+                           <th style="background: gainsboro;">
+                              <span>Telegram</span> <br>
+                           </th>
+                           <th style="background: gainsboro;">
+                              <span>Twitter</span> <br>
+                           </th>
+                           <th style="background: gainsboro;">
+                              <span>Pancake</span> <br>
+                           </th>
+                           <th style="background: gainsboro;">
+                              <span>Discord</span> <br>
                            </th>
                            <th style="background: gainsboro;">
                               <span>Created At</span> <br>
                            </th>
-                           <th style="background: gainsboro;">
-                              <span>Actions</span> <br>
-                           </th>
+                           
                         </tr>
                      </thead>
                      <tbody>
-                        @if(isset($view_users))
-                        @foreach($view_users as $view_user)
+                        @if(isset($coins))
+                        @foreach($coins as $row)
                         <tr>
-                           <td>{{$view_user->id}}</td>
-                           <td>{{$view_user->username}}</td>
-                           <td>{{$view_user->created_at}}</td>
-                           <td>
-                            <a href="{{'edit_user/'.$view_user->id}}"><button type="button" class=" btn btn-primary   text-white" name="create_record" id="create_product">
+                           <td>{{$row->id}}</td>
+                           <td><img src="{{$row->logo}}" alt="Logo" style="width: 70px;height: 60px;"></td>
+                           <td>{{$row->name}}</td>
+                            <td>{{DB::table('users')->where('id',$row->user_id)->pluck('name')->first()}}</td>
+                           <td>{{$row->symbol}}</td>
+                           <td>{{\Illuminate\Support\Str::limit($row->description, 30)}}</td>
+                           <td>{{$row->price}}</td>
+                            <td>{{$row->launch_date}}</td>
+                            <td>
+                          <!--   <a href="{{'edit_user/'.$row->id}}"><button type="button" class=" btn btn-primary   text-white" name="create_record" id="create_product">
                               Edit
-                              </button></a>
-                               <button type="button" class="btn  btn-danger" data-toggle="modal" data-target="{{'#exampleMod'.$view_user->id}}">
+                              </button></a> -->
+                              @if(auth()->user()->role == 1)
+                                @if($row->promote == 0)
+                               <button type="button" class="btn  btn-success" data-toggle="modal" data-target="{{'#promote'.$row->id}}">
+                                
+                              Promote
+                              </button>
+                              @endif
+                               @if($row->verify == 0)
+                               <button type="button" class="btn  btn-success" data-toggle="modal" data-target="{{'#verify'.$row->id}}">
+                              Verify
+                              </button>
+                              @endif
+                               @if($row->best == 0)
+                               <button type="button" class="btn  btn-success" data-toggle="modal" data-target="{{'#best'.$row->id}}">
+                              Best
+                              </button>
+                              @endif
+                              @endif
+
+                               <button type="button" class="btn  btn-danger" data-toggle="modal" data-target="{{'#exampleMod'.$row->id}}">
                               Delete
                               </button>
                               
-               </div>
-               </td>
-               </tr>
+                             </div>
+                             </td>
+                           <td>{{$row->market_cap}}</td>
+                           <td>{{$row->smart_chain}}</td>
+                           <td>{{$row->website}}</td>
+                           <td>{{$row->telegram}}</td>
+                           <td>{{$row->twitter}}</td>
+                           <td>{{$row->pancake}}</td>
+                           <td>{{$row->discord}}</td>
+                           <td>{{$row->created_at}}</td>
+                           
+                         </tr>
 
-               <div class="modal fade" id="{{'exampleMod'.$view_user->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <!-- Delete -->
+               <div class="modal fade" id="{{'exampleMod'.$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                  <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                        <div class="modal-header">
-                                          <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                                          <h5 class="modal-title" id="exampleModalLabel">Delete {{$row->name}}}</h5>
                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                           <span aria-hidden="true">&times;</span>
                                           </button>
                                        </div>
                                        <div class="modal-body">
-                                          Are you sure you want to DELETE user?
+                                          Are you sure you want to DELETE?
                                        </div>
                                        <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                          <a href="{{'delete_user/'.$view_user->id}}"><button type="button" class=" btn btn-danger   text-white" name="create_record" id="create_product">
+                                          <a href="{{'delete_coin/'.$row->id}}"><button type="button" class=" btn btn-danger   text-white" name="create_record" id="create_product">
                                           Delete
+                                          </button></a>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+
+                              <!-- Promote -->
+                              <div class="modal fade" id="{{'promote'.$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                 <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Promote {{$row->name}}</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                          </button>
+                                       </div>
+                                       <div class="modal-body">
+                                          Are you sure you want to do this?
+                                       </div>
+                                       <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          <a href="{{'promote/'.$row->id}}"><button type="button" class=" btn btn-success   text-white" name="create_record" id="create_product">
+                                          Promote
+                                          </button></a>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+
+                              <!-- Verify -->
+                              <div class="modal fade" id="{{'verify'.$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                 <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Verify {{$row->name}}</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                          </button>
+                                       </div>
+                                       <div class="modal-body">
+                                          Are you sure you want to do this?
+                                       </div>
+                                       <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          <a href="{{'verify/'.$row->id}}"><button type="button" class=" btn btn-success   text-white" name="create_record" id="create_product">
+                                          Verify
+                                          </button></a>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+
+                              <!-- Best -->
+                              <div class="modal fade" id="{{'best'.$row->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                 <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Today's Best {{$row->name}}</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                          </button>
+                                       </div>
+                                       <div class="modal-body">
+                                          Are you sure you want to do this?
+                                       </div>
+                                       <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                          <a href="{{'best/'.$row->id}}"><button type="button" class=" btn btn-success   text-white" name="create_record" id="create_product">
+                                          Today's Best
                                           </button></a>
                                        </div>
                                     </div>
