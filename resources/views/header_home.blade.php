@@ -37,8 +37,13 @@
          padding-left: 0px;
          padding-right: 0px;
       }a{
-         text-decoration: none !important;  
-      }#root{
+         text-decoration: none !important; 
+         color: black; 
+      }
+      a:hover{
+        color: black;
+      }
+      #root{
           padding-left: 9%;
           padding-right: 9%;
      }.pt-5, .py-5 {
@@ -63,7 +68,7 @@
          <div class="Home_Container__1m5fH pt-5">
             <div class="Home_navbarcontainer__3z5Rz">
                <div class="Home_logocol__3l37R">
-                  <a class="text-dark pt-0" href=""><img src="images/LogoCircle.png" alt="Logo"
+                  <a class="text-dark pt-0" href="/"><img src="images/LogoCircle.png" alt="Logo"
                      style="width: 80px;height: 70px;"> CoinCapital</a>
                </div>
                <div class="Home_navlist__3g1gx ">
@@ -74,7 +79,7 @@
                       @if(!auth()->check())
                       <li><a class="Home_linkNavbar__AVp-X " style="background-color: black;color: white;" href="/sign_up">Sign Up</a></li>
                       @else
-                     <li><a class="Home_linkNavbar__AVp-X " style="background-color: black;color: white;" href="/home">Dashboard</a></li>
+                     <li><a class="Home_linkNavbar__AVp-X " style="background-color: black;color: white;" href="/logout">Logout</a></li>
                       @endif
                       <li><a class="Home_linkNavbar__AVp-X" style="background-color: black;color: white;" href="/"><img src="images/BNB.png" alt="Logo"
                      style="width: 30px; height: 25px;">BNB Price $399</a></li>
@@ -88,34 +93,35 @@
                      <div class="row mt-5">
                         <div class="col-md-2">
                            <div class="card card-border" >
-                              <div class="card-custom">
+                              <a href="/listing?value=promote"><div class="card-custom">
                                  <span>Promoted</span>
                                  <img  class=""  src="images/startup.svg" width="26px" alt="">
-                              </div>
+                              </div></a>
+                            </a>
                            </div>
                         </div>
                         <div class="col-md-2">
                            <div class="card card-border">
-                              <div class="card-custom">
+                              <a href="/listing?value=verify"><div class="card-custom">
                                  <span>Verified</span>
                                  <img src="images/email.svg" width="26px" alt="">
-                              </div>
+                              </div></a>
                            </div>
                         </div>
                         <div class="col-md-2">
                            <div class="card card-border">
-                              <div class="card-custom">
+                             <a href="/listing?value=new"> <div class="card-custom">
                                  <span>New Listings</span>
                                  <img src="images/clipboard.svg" width="26px" alt="">
-                              </div>
+                              </div></a>
                            </div>
                         </div>
                         <div class="col-md-2">
                            <div class="card card-border">
-                              <div class="card-custom">
+                             <a href="/listing?value=best"> <div class="card-custom">
                                  <span>All Time</span>
                                  <img src="images/trophy.svg" width="26px" alt="">
-                              </div>
+                              </div></a>
                            </div>
                         </div>
                         <div class="col-md-2">

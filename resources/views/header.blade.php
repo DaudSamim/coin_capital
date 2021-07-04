@@ -13,7 +13,11 @@
   </head>
   <style>
     a{
-         text-decoration: none !important;  
+         text-decoration: none !important; 
+         color: black; 
+      }
+      a:hover{
+        color: black;
       }#root{
           padding-left: 9%;
           padding-right: 9%;
@@ -34,7 +38,7 @@
                       @if(!auth()->check())
                       <li><a class="Home_linkNavbar__AVp-X " style="background-color: black;color: white;" href="/sign_up">Sign Up</a></li>
                       @else
-                     <li><a class="Home_linkNavbar__AVp-X " style="background-color: black;color: white;" href="/home">Dashboard</a></li>
+                     <li><a class="Home_linkNavbar__AVp-X " style="background-color: black;color: white;" href="/logout">Logout</a></li>
                       @endif
                       <li><a class="Home_linkNavbar__AVp-X " style="border: 1px #827f7f solid; background-color: black;color: white;" href="/"><img src="images/BNB.png" alt="Logo"
                      style="width: 30px; height: 25px;">BNB Price $399</a></li>
@@ -45,36 +49,37 @@
 
             <div class="container" style="padding-left: 0; padding-right: 0">
               <div class="row mt-4">
-                        <div class="col-md-2">
-                           <div class="card card-border" id="promoted1">
-                              <div class="card-custom">
+                         <div class="col-md-2">
+                           <div class="card card-border" >
+                              <a href="/listing?value=promote"><div class="card-custom">
                                  <span>Promoted</span>
-                                 <img  class="" id="promoted" src="images/startup.svg" width="26px" alt="">
-                              </div>
+                                 <img  class=""  src="images/startup.svg" width="26px" alt="">
+                              </div></a>
+                            </a>
                            </div>
                         </div>
                         <div class="col-md-2">
                            <div class="card card-border">
-                              <div class="card-custom">
+                              <a href="/listing?value=verify"><div class="card-custom">
                                  <span>Verified</span>
                                  <img src="images/email.svg" width="26px" alt="">
-                              </div>
+                              </div></a>
                            </div>
                         </div>
                         <div class="col-md-2">
                            <div class="card card-border">
-                              <div class="card-custom">
+                             <a href="/listing?value=new"> <div class="card-custom">
                                  <span>New Listings</span>
                                  <img src="images/clipboard.svg" width="26px" alt="">
-                              </div>
+                              </div></a>
                            </div>
                         </div>
                         <div class="col-md-2">
                            <div class="card card-border">
-                              <div class="card-custom">
+                             <a href="/listing?value=best"> <div class="card-custom">
                                  <span>All Time</span>
                                  <img src="images/trophy.svg" width="26px" alt="">
-                              </div>
+                              </div></a>
                            </div>
                         </div>
                         <div class="col-md-2">
@@ -87,8 +92,8 @@
                         </div>
                         <div class="col-md-2">
                            <div class="card card-border">
-                              <a href="/add_coin" style="color:black">
-                              <div class="card-custom">
+                              <a href="/add_coin" style="color: black">
+                              <div class="card-custom" >
                                  <span>Add Coin</span>
                                  <span>...</span>
                               </div>

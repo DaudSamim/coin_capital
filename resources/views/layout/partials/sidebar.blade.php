@@ -30,6 +30,13 @@
             <span class="link-title">All Coins</span>
             </a>
          </li>
+
+         <li class="nav-item">
+            <a class="nav-link" href="/banner" role="button">
+            <i class="link-icon" data-feather="terminal"></i>
+            <span class="link-title">Banners</span>
+            </a>
+         </li>
          @endif  
 
          @if(auth()->user()->role == 2)
@@ -40,13 +47,6 @@
             </a>
          </li>
          @endif  
-
-         <li class="nav-item">
-            <a class="nav-link" href="/favourites" role="button">
-            <i class="link-icon" data-feather="terminal"></i>
-            <span class="link-title">My Favourites</span>
-            </a>
-         </li>
 
 
              
