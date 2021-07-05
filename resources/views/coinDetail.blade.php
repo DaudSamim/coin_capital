@@ -27,7 +27,7 @@
                                        <span class="">
                                         <h4 class="text-muted mt-4">Rank: {{$coin->rank}}</h4>
                                         @if(isset($coin->website))
-                                        <a href="{{$coin->website}}"><button class="btn btn-pills"> <i class="fab fa-website"></i> Website  <i class="fas ml-3 fa-external-link-alt"></i></button></a>
+                                        <a href="{{$coin->website}}"><button class="btn btn-pills"> <img src="/images/web.png" style="max-width: 25px"> Website  <i class="fas ml-3 fa-external-link-alt"></i></button></a>
                                         @endif
                                          @if(isset($coin->telegram))
                                         <a href="{{$coin->telegram}}"><button class="btn btn-pills"> <i class="fab fa-telegram-plane"></i> Telegram  <i class="fas ml-3 fa-external-link-alt"></i></button></a>
@@ -35,7 +35,7 @@
                                        
                                     </span>
                                     <br>
-                                    <button class="btn btn-pancake">Pancakeswap</button>
+                                    <button class="btn btn-pancake"><img src="/images/pancake.png" style="max-width: 25px"> Pancakeswap</button>
                                    </div>
                                 </div>
                             </div>
@@ -78,8 +78,8 @@
                             <div class="col-md-12">
                                 <hr>
                               <button class="btn btn-active">Overview</button>
-                              <button class="btn btn-vote">Total Likes: 34</button>
-                              <button class="btn btn-vote">Today Likes: 13</button>
+                              <button class="btn btn-vote">Total Likes: {{$coin->likes}}</button>
+                              <button class="btn btn-vote">Today Likes: {{$coin->likes}}</button>
                               <button class="btn  font-weight-bold">Chart</button>
                               <button class="btn font-weight-bold ">Holders</button>
                             </div>

@@ -16,8 +16,10 @@ class HomeController extends Controller
     public function home(){
         $promoted = DB::table('coins')->where('promote',1)->orderBy('id','desc')->limit(6)->get();
         $verified = DB::table('coins')->where('verify',1)->orderBy('id','desc')->limit(6)->get();
-        $best = DB::table('coins')->where('best',1)->orderBy('id','desc')->limit(6)->get();
-        $new_coins = DB::table('coins')->orderBy('id','desc')->limit(6)->get();
+        $new_coins = DB::table('coins')->orderBy('likes','asc')->limit(6)->get();
+        $best = DB::table('coins')->orderBy('likes','desc')->limit(6)->get();
+
+        
 
         if(auth()->check()){
              $favourites = DB::table('favourites')->where('user_id',auth()->user()->id)->orderBy('id','desc')->get()->pluck('coin_id');
@@ -81,7 +83,7 @@ class HomeController extends Controller
 
     public function coinDetail($id){
         $coin = DB::table('coins')->where('id',$id)->first();
-        $trending_coins = DB::table('coins')->where('id','!=',$id)->where('best',1)->limit(6)->get();
+        $trending_coins = DB::table('coins')->where('id','!=',$id)->orderBy('likes','desc')->limit(6)->get();
         if(!$coin){
             return redirect('/');
         }
@@ -163,6 +165,10 @@ class HomeController extends Controller
 
         if(DB::table('favourites')->where('coin_id',$id)->where('user_id',auth()->user()->id)->first()){
             DB::table('favourites')->where('coin_id',$id)->where('user_id',auth()->user()->id)->delete();
+
+
+            DB::table('coins')->where('id',$id)->decrement('likes');
+                
             return redirect()->back()->with('success','Successfully Updated');
         }
 
@@ -171,6 +177,8 @@ class HomeController extends Controller
             'user_id' => auth()->user()->id,
         ]);
 
+         DB::table('coins')->where('id',$id)->increment('likes');
+
          return redirect()->back()->with('success','Successfully Updated');
 
     }
@@ -178,11 +186,14 @@ class HomeController extends Controller
     public function listing(Request $request){
         $value = $request->input('value');
 
-        if($value == 'promote' || $value == 'best' || $value == 'verify'){
+        if($value == 'promote' || $value == 'verify'){
             $promoted = DB::table('coins')->where($value,1)->orderBy('id','desc')->get();
         }
+        elseif($value == 'best'){
+           $promoted = DB::table('coins')->orderBy('likes','desc')->limit(10)->get();
+        }
         else{
-             $promoted = DB::table('coins')->orderBy('id','desc')->limit(100)->get();
+             $promoted = DB::table('coins')->orderBy('likes','asc')->limit(100)->get();
         }
 
         return view('listing',compact('promoted','value'));

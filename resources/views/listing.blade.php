@@ -9,54 +9,60 @@
                            
 
                             <div class="mx-0 w-100 row m-3" style="height: 60px;">
-                                                    <div class="px-0 align-self-center Landing_ColFontSize__16IhF col-1">
-                                                      <p style="margin-left: 15%">Symbol</p>
+                                                    <div class="px-0 align-self-center Landing_ColFontSize__16IhF col-1 leftAlign" style="margin-left: 3%">
+                                                      <!-- <p style="margin-left: 15%">Symbol</p> -->
                                                    </div>
-                                                    <div class="px-0 align-self-center Landing_ColFontSize__16IhF col-3">
+                                                   <div class="px-0 align-self-center Landing_ColFontSize__16IhF col-2 leftAlign">
+                                                      <p >Symbol</p>
+                                                   </div>
+                                                    <div class="px-0 align-self-center Landing_ColFontSize__16IhF col-2 leftAlign">
                                                       <p style="margin-left: 15%">Name</p>
                                                    </div>
-                                                   <div class="px-0 align-self-center Landing_ColFontSize__16IhF col-3">
+                                                   <div class="px-0 align-self-center Landing_ColFontSize__16IhF col-2 leftAlign" style="margin-left: 0%; padding-left: 2% !important">
                                                       <p>Price</p>
                                                    </div>
-                                                   <div class="px-0 align-self-center Landing_ColFontSize__16IhF col-3">
-                                                      <p>Launch</p>
+                                                   <div class="px-0 align-self-center Landing_ColFontSize__16IhF col-2 leftAlign">
+                                                      <p style="padding-left: 5% !important">Launch</p>
                                                    </div>
-                                                   <div class="px-0 align-self-center Landing_ColFontSize__16IhF col-2">
-                                                      <p> Vote</p>
+                                                   <div class="px-0 align-self-center Landing_ColFontSize__16IhF col-2 leftAlign">
+                                                      <p style="padding-left: 25% !important"> Vote</p>
                                                    </div>
                                                   
                                                 </div>
 
                            <div class="tab-content" id="myTabContent">
                               <div class="tab-pane fade show active" id="homeasd" role="tabpanel" aria-labelledby="home-tab">
-                                 <div class="Landing_tableTrending__2HiKC">
+                                   <div class="Landing_tableTrending__2HiKC">
                                     @foreach($promoted as $row)
                                     <div class="Landing_RowContain__2mn6k">
                                        <div class="mx-0 w-100 row" style="height: 60px;">
                                           <div class="px-0 col-sm-10 col-9">
                                              <a href="/coin_detail_{{$row->id}}" class="Landing_RowLink__1Qh2o">
                                                 <div class="mx-0 w-100 row" style="height: 60px;">
-                                                   <div class="px-0 align-self-center Landing_ColFontSize__16IhF col">
+                                                   <div class="px-0 align-self-center Landing_ColFontSize__16IhF col-7">
                                                       <div class="mx-0 w-100 row" style="height: 60px;">
-                                                         <div class="mx-1 px-0 align-self-center Landing_ColFontSize__16IhF col-3">
+                                                         <div class="mx-1 px-0 align-self-center Landing_ColFontSize__16IhF col-2">
                                                             <img class="Landing_CoinLogo__2ekVJ" src="{{$row->logo}}" alt="Logo">
                                                             @if($row->verify == 1)
                                                             <i class="fa fa-check-circle i-check" aria-hidden="true"></i>
                                                             @endif
                                                          </div>
-                                                         <div class="px-0 align-self-center Landing_ColFontSize__16IhF Landing_FullName__YGUK2 col">
+                                                          <div class="px-0 align-self-center Landing_ColFontSize__16IhF Landing_FullName__YGUK2 col-6">
+                                                            {{$row->symbol}}
+                                                         </div>
+                                                         <div class="px-0 align-self-center Landing_ColFontSize__16IhF Landing_FullName__YGUK2 col-3">
                                                             {{$row->name}}
                                                          </div>
-                                                         <div class="px-0 align-self-center Landing_ColFontSize__16IhF Landing_SmallName__14yVi col">
+                                                         <div class="px-0 align-self-center Landing_ColFontSize__16IhF Landing_SmallName__14yVi col-2">
                                                             {{$row->symbol}}
                                                          </div>
                                                       </div>
                                                    </div>
-                                                   <div class="px-0 align-self-center Landing_ColFontSize__16IhF col-3">
+                                                   <div class="px-0 align-self-center Landing_ColFontSize__16IhF col-2">
                                                       <p>${{ Str::limit($row->price, 11) }}</p>
                                                    </div>
                                                    <div class="px-0 align-self-center Landing_ColFontSize__16IhF Landing_FullName__YGUK2 col-sm-3 col-2">
-                                                        @php
+                                                      @php
                                                             $days = \Carbon\Carbon::parse($row->launch_date)->diffForHumans();
                                                         @endphp
                                                       <p>{{$days}}</p>
@@ -75,7 +81,8 @@
                                                       <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z">
                                                       </path>
                                                    </svg>
-                                                   <div class="Landing_VoteText__3WvuW">1583</div>
+                                                   
+                                                   <div class="Landing_VoteText__3WvuW">{{$row->likes}}</div>
                                                 </div>
                                              </button>
                                           </div>
